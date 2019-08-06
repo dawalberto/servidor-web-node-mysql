@@ -88,6 +88,20 @@ module.exports = class Libro {
                 }
             })
         })
-        
+
     };
+
+    static librosPorPrecio(minimo, maximo) {
+
+        return new Promise((resolve, reject) => {
+            conexion.query('select * from libros where precio between ? and ?', [minimo, maximo], (error, resultado, campos) => {
+                if (error || resultado.length <= 0) {
+                    reject('ERROR: ', error)
+                } else {
+                    resolve(resultado)
+                }
+            })
+        })
+
+    }
 }

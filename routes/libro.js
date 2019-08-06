@@ -83,5 +83,20 @@ router.delete('/:id', (req, res) => {
 
 })
 
+router.get('/precios/:minimo/:maximo', (req, res) => {
+
+    let minimo = req.params.minimo
+    let maximo = req.params.maximo
+
+    Libro.librosPorPrecio(minimo, maximo)
+        .then(response => {
+            res.send(response)
+        })
+        .catch(err => {
+            res.send(err)
+        })
+
+})
+
 
 module.exports = router
