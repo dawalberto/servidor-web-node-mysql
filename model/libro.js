@@ -12,6 +12,7 @@ module.exports = class Libro {
     }
 
     static cargarLibros() {
+
         return new Promise((resolve, reject) => {
             conexion.query('select * from libros', (error, resultado, campos) => {
                 if (error) {
@@ -22,18 +23,21 @@ module.exports = class Libro {
                 }
             })
         })
+
     };
     
     static buscarLibroPorId(id) {
+
         return new Promise((resolve, reject) => {
             conexion.query('select * from libros where cod = ?', id, (error, resultado, campos) => {
-                if (error) {
+                if (error || resultado.length <= 0) {
                     reject('ERROR: ', error)
                 } else {
                     resolve(resultado)
                 }
             })
         })
+
     };
     
     static nuevoLibro(cod, ISBN, titulo, precio, url, imagen, cod_autor) {
@@ -60,6 +64,7 @@ module.exports = class Libro {
     };
     
     static actualizarLibro(cod, ISBN, titulo, precio, url, imagen, cod_autor) {
+
         return new Promise((resolve, reject) => {
             conexion.query('update libros set cod = ?, ISBN = ?, titulo = ?, precio = ?, url = ?, imagen = ?, cod_autor = ? where cod = ?', [cod, ISBN, titulo, precio, url, imagen, cod_autor, cod], (error, resultado, campos) => {
                 if (error) {
@@ -69,9 +74,11 @@ module.exports = class Libro {
                 }
             })
         })
+
     };
     
     static async borrarLibro(id) {
+
         return new Promise((resolve, reject) => {
             conexion.query('delete from libros where cod = ?', id, (error, resultado, campos) => {
                 if (error) {
@@ -81,5 +88,6 @@ module.exports = class Libro {
                 }
             })
         })
+        
     };
 }
