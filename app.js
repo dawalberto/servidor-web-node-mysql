@@ -1,10 +1,11 @@
 const app = require('express')()
 const bodyParser = require('body-parser')
-
+const cors = require('cors')
 
 const libros = require('./routes/libro')
 
 app.use(bodyParser.json())
+app.use(cors())
 app.use('/libros', libros)
 
 app.use((req, res, next) => {
